@@ -1,0 +1,45 @@
+<?php
+
+class Conexion {
+    // Constantes para crear la conexion con PDO
+    const HOST = "localhost";
+    const BASE_DE_DATOS = "noti"; 
+    const USUARIO = "root"; 
+    const PASS = ""; 
+
+    private static $conexion;// conexión con base de datos
+    private static $instancia; // Instancia de esta clase SINGLETON
+
+    private final function __construct() {
+        try{
+
+        }catch(PDOException $exc){
+            // Error en conexión
+        }
+    }
+
+    public static function getInstancia(){
+        if( self::$instancia == null ){
+            self::$instancia = new Conexion();
+        }
+
+        return self::$instancia;
+    }
+
+    public static function getConexion() {
+        if( self::$conexion == null ){
+            self::$conexion = new PDO(
+                'mysql:dbname=' . self::BASE_DE_DATOS . ';host=' . self::HOST,
+                slef::USUARIO,
+                self::PASS
+            );
+
+            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$conexion->exec("set names utf8");
+        }
+
+        return self::$conexion;
+    }
+}
+
+?>
