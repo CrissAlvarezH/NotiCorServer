@@ -30,11 +30,11 @@ class Conexion {
         if( self::$conexion == null ){
             self::$conexion = new PDO(
                 'mysql:dbname=' . self::BASE_DE_DATOS . ';host=' . self::HOST,
-                slef::USUARIO,
+                self::USUARIO,
                 self::PASS
             );
 
-            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conexion->exec("set names utf8");
         }
 
