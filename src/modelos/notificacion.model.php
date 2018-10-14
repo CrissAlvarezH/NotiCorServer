@@ -91,7 +91,7 @@ class NotificacionModel {
         $con = Conexion::getInstancia()->getConexion();
 
         $sentencia = $con->prepare(
-            'SELECT * FROM ' . TABLA_NOTIFICACIONES
+            'SELECT * FROM ' . TABLA_NOTIFICACIONES . ' ORDER BY ' . ID . ' DESC'
         );
 
         if( $sentencia->execute() ){
