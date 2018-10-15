@@ -31,6 +31,16 @@ $grupoRutasNotificaciones = function () {
         return $res;
     });
     // [ FIN ] RUTAS POST
+
+    // [ INICIO ] RUTAS DELETE
+    $this->delete('/{id}', function ($req, $res, $args) {
+        $id = $args['id'];
+
+        $res->getBody()->write( json_encode( NotificacionModel::eliminarUna($id) ) );
+
+        return $res;
+    });
+    // [ FIN ] RUTAS DELETE
 }
 
 ?>

@@ -137,6 +137,26 @@ class NotificacionModel {
         ];
     }
 
+    public static function eliminarUna($id) {
+        $con = Conexion::getInstancia()->getConexion();
+
+        $sent = $con->prepare(
+            'DELETE FROM '. TABLA_NOTIFICACIONES .' WHERE '.ID.' = :id '
+        );
+
+        $sent->bindParam('id', $id);
+
+        if( $sent->execute() ){
+            return [
+                'okay' => true
+            ];
+        }else{
+            return [
+                'okay' => false
+            ];
+        }
+    }
+
 }
 
 ?>
