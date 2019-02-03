@@ -3,9 +3,9 @@
 class Conexion {
     // Constantes para crear la conexion con PDO
     const HOST = "localhost";
-    const BASE_DE_DATOS = "noti"; 
+    const BASE_DE_DATOS = "ubiety"; 
     const USUARIO = "root"; 
-    const PASS = ""; 
+    const PASS = "guitarra1"; 
 
     private static $conexion;// conexión con base de datos
     private static $instancia; // Instancia de esta clase SINGLETON
