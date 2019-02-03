@@ -9,11 +9,13 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 require_once 'rutas/notificaciones.router.php';
 require_once 'rutas/base.router.php';
+require_once 'rutas/noticias.router.php';
 
 $app = new \Slim\App();
 
 $app->group('/notificaciones', $grupoRutasNotificaciones);
 $app->group('/base', $grupoRutasBase);
+$app->group('/noticias', $grupoRutasNoticias);
 
 $app->run();
 

@@ -47,7 +47,7 @@ class BaseModel {
 
         // Obtenemos las ultimas 5 noticias
         $sentNoticias = $con->prepare(
-            'SELECT *, '.URL_IMAGEN.' AS urlImagen, '.ID_CARRERA.' AS idCarrera FROM '.TABLA_NOTICIAS.' ORDER BY '.FECHA.' DESC'
+            'SELECT *, '.URL_IMAGEN.' AS urlImagen, '.ID_CARRERA.' AS idCarrera FROM '.TABLA_NOTICIAS.' ORDER BY '.FECHA.' DESC LIMIT 5'
         );
 
         $resNoticias = [];
