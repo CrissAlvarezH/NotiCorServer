@@ -33,6 +33,23 @@ class NoticiasModel {
         }
     }
 
+    public static function insertarNoticia($noticia) {
+        $con = Conexion::getInstancia()->getConexion();
+
+        $sent = $con->prepare(
+            'INSERT INTO '.TABLA_NOTICIAS.' VALUES (null, :url_img, :titulo, :descripcion, :tipo, :fecha, :enlace, :id_carrera)'
+        );
+
+        $sent->bindParam('url_img', $noticia['urlImagen']);
+        $sent->bindParam('titulo', $noticia['titulo']);
+        $sent->bindParam('descripcion', $noticia['descripcion']);
+        $sent->bindParam('tipo', $noticia['tipo']);
+        $sent->bindParam('fecha', $noticia['fecha']);
+        $sent->bindParam('enlace', $noticia['enlace']);
+        $sent->bindParam('id_carrera', $noticia['idCarrera']);
+
+        return $sent->execute();
+    }
 }
 
 ?>

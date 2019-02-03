@@ -21,4 +21,13 @@ const ID_FACULTAD = "id_facultad";
 const ID_CARRERA = "id_carrera";
 // [ FIN ] PARA EL MANEJO DE LAS TABLAS
 
+// [ INICIO ] TIPOS
+const NEWS_NOTICIA = 1;
+const NEWS_BANNER = 2;
+
+const NOTI_NOTICIA = 1;
+const NOTI_ADVERTENCIA = 2;
+const NOTI_PELIGRO = 3;
+// [ FIN ] TIPOS
+
 ?>

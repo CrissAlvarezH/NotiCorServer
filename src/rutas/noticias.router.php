@@ -34,6 +34,13 @@ $grupoRutasNoticias = function () {
     // [ FIN ] RUTAS GET
 
     // [ INICIO ] RUTAS POST
+    $this->post('', function ($req, $res, $args) {
+        $resp = NoticiasModel::insertarNoticia( $req->getParsedBody() );
+
+        $res->getBody()->write( json_encode( [ 'okay' => $resp ] ) );
+
+        return $res;
+    });
     // [ FIN ] RUTAS POST
 
 }
