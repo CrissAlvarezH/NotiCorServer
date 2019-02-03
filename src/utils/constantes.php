@@ -5,6 +5,7 @@ const TABLA_NOTIFICACIONES = "notificaciones";
 const TABLA_FACULTADES = "facultades";
 const TABLA_CARRERAS = "carreras";
 const TABLA_NOTICIAS = "noticias";
+const TABLA_USUARIOS = "usuarios";
 
 const ID = "id";
 const TIPO = "tipo";
@@ -13,6 +14,8 @@ const DESCRIPCION = "descripcion";
 const FECHA = "fecha";
 const HORA = "hora";
 const NOMBRE = "nombre";
+const USUARIO = "usuario";
+const PASS = "pass";
 const URL_IMAGEN = "url_imagen";
 const ID_FACULTAD = "id_facultad";
 const ID_CARRERA = "id_carrera";

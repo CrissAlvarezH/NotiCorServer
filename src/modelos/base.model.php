@@ -64,6 +64,30 @@ class BaseModel {
         ];
     }
 
+    public static function verificarCredenciales($usuario, $pass) {
+        $con = Conexion::getInstancia()->getConexion();
+
+        $sentencia = $con->prepare(
+            'SELECT * FROM '.TABLA_USUARIOS.' WHERE '.USUARIO.' = :usuario AND '.PASS.' = :pass '
+        );
+
+        $sentencia->bindParam('usuario', $usuario);
+        $sentencia->bindParam('pass', $pass);
+
+        if ( $sentencia->execute() ) {
+
+            if ( $sentencia->rowCount() > 0 ) {
+                $res = $sentencia->fetchAll(PDO::FETCH_ASSOC)[0];
+
+                unset( $res['pass'] );// Para no retornar la contraseña
+
+                return $res;
+            }
+        } 
+
+        return false;
+    }
+
 }
 
 ?>
