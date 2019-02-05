@@ -48,7 +48,13 @@ class NoticiasModel {
         $sent->bindParam('enlace', $noticia['enlace']);
         $sent->bindParam('id_carrera', $noticia['idCarrera']);
 
-        return $sent->execute();
+        if ( $sent->execute() ) {
+            $id = $con->lastInsertId();
+
+            return $id;
+        } else {
+            return false;
+        }
     }
 }
 

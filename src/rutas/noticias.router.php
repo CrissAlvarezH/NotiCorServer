@@ -1,5 +1,6 @@
 <?php
 require_once 'modelos/noticias.model.php';
+require_once 'utils/constantes.php';
 
 $grupoRutasNoticias = function () {
 
@@ -35,9 +36,26 @@ $grupoRutasNoticias = function () {
 
     // [ INICIO ] RUTAS POST
     $this->post('', function ($req, $res, $args) {
-        $resp = NoticiasModel::insertarNoticia( $req->getParsedBody() );
+        // Insertamos los datos y tomamos el id para guardar la imagen con ese nombre
+        $id = NoticiasModel::insertarNoticia( $req->getParsedBody() );
 
-        $res->getBody()->write( json_encode( [ 'okay' => $resp ] ) );
+        if ( $id ) {
+            $ruta = $this->get('ruta_img_noticias');// Obtenemos la ruta definida en index.php
+            $uploadedFiles = $req->getUploadedFiles();
+
+            // Pedimos el archivo que se ha subido con el name dado en el form url encode
+            $uploadedFile = $uploadedFiles['imagen'];
+            if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+                // Guardamos la imagen cuyo nombre es el id de la noticia
+                $filename = $id . '.jpg';
+                $uploadedFile->moveTo($ruta . DIRECTORY_SEPARATOR . $filename);
+            }
+
+            $res->getBody()->write( json_encode( [ 'okay' => true, 'id' => $id ] ) );
+
+        } else {
+            $res->getBody()->write( json_encode( [ 'okay' => false ] ) );
+        }
 
         return $res;
     });

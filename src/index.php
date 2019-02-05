@@ -13,6 +13,11 @@ require_once 'rutas/noticias.router.php';
 
 $app = new \Slim\App();
 
+// Tomamos la ruta aquí para tener de referencia el index.php (donde estamos)
+// y lo guardamos en las variables del contenedor para acceder a ellas con $app->get('<variable>')
+$contenedor = $app->getContainer();
+$contenedor['ruta_img_noticias'] =  __DIR__ . '/uploads/noticias';
+
 $app->group('/notificaciones', $grupoRutasNotificaciones);
 $app->group('/base', $grupoRutasBase);
 $app->group('/noticias', $grupoRutasNoticias);
