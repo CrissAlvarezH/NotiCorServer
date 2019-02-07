@@ -56,6 +56,38 @@ class NoticiasModel {
             return false;
         }
     }
+
+    public static function getSoloNoticias($idCarrera) {
+        $con = Conexion::getInstancia()->getConexion();
+
+        $sent = $con->prepare(
+            'SELECT * FROM '.TABLA_NOTICIAS.' WHERE '.ID_CARRERA.' = :id_carrera AND '.TIPO.' = 1 '
+        );
+
+        $sent->bindParam('id_carrera', $idCarrera);
+
+        if ( $sent->execute() ) {
+            return $sent->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return [];
+        }
+    }
+
+    public static function getSoloBanners($idCarrera) {
+        $con = Conexion::getInstancia()->getConexion();
+
+        $sent = $con->prepare(
+            'SELECT * FROM '.TABLA_NOTICIAS.' WHERE '.ID_CARRERA.' = :id_carrera AND '.TIPO.' = 2 '
+        );
+
+        $sent->bindParam('id_carrera', $idCarrera);
+
+        if ( $sent->execute() ) {
+            return $sent->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return [];
+        }
+    }
 }
 
 ?>

@@ -32,6 +32,21 @@ $grupoRutasNoticias = function () {
 
         return $res;
     });
+
+    $this->get('/noti-and-banners/{id_carrera}', function ($req, $res, $args) {
+        $noticias = NoticiasModel::getSoloNoticias( $args['id_carrera'] );
+        $banners  = NoticiasModel::getSoloBanners( $args['id_carrera'] );
+
+        $res->getBody()->write( json_encode(
+            [
+                'okay' => true,
+                'noticias' => $noticias,
+                'banners' => $banners
+            ]
+        ));
+
+        return $res;
+    });
     // [ FIN ] RUTAS GET
 
     // [ INICIO ] RUTAS POST
