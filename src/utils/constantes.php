@@ -17,6 +17,7 @@ const HORA = "hora";
 const NOMBRE = "nombre";
 const USUARIO = "usuario";
 const PASS = "pass";
+const DESTINATARIO = "destinatario";
 const URL_IMAGEN = "url_imagen";
 const ID_FACULTAD = "id_facultad";
 const ID_CARRERA = "id_carrera";

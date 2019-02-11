@@ -5,8 +5,8 @@ require_once 'modelos/base.model.php';
 $grupoRutasBase = function () {
 
     // [ INICIO ] RUTAS GET
-    $this->get('/info-inicial', function ($req, $res, $args) {
-        $resp = BaseModel::getInfoInicio();
+    $this->get('/info-inicial/{rol}', function ($req, $res, $args) {
+        $resp = BaseModel::getInfoInicio( $args['rol'] );
 
         $resp['okay'] = true;
 

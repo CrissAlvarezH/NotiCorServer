@@ -9,7 +9,7 @@ class BaseModel {
      * cuando apenas se abre, que es la información que va a mostrar en las primeras
      * vistas de las tabs
      */
-    public static function getInfoInicio() {
+    public static function getInfoInicio($rol) {
         $con = Conexion::getInstancia()->getConexion();
         
         // Consultamos las facultades
@@ -34,10 +34,12 @@ class BaseModel {
             $resCarreras = $sentCarreras->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        // Obtenemos las ultimas 10 notificaciones
+        // Obtenemos las ultimas 10 notificaciones dependiendo del rol
         $sentNotificaciones = $con->prepare(
-            'SELECT * FROM '.TABLA_NOTIFICACIONES.' ORDER BY '.FECHA.' DESC, '.HORA.' DESC LIMIT 10'
+            'SELECT * FROM '.TABLA_NOTIFICACIONES.' WHERE '.DESTINATARIO.' = :destinatario ORDER BY '.FECHA.' DESC, '.HORA.' DESC LIMIT 10'
         );
+
+        $sentNotificaciones->bindParam('destinatario', $rol);
 
         $resNotificaciones = [];
 
@@ -90,10 +92,19 @@ class BaseModel {
 
     public static function enviarNoti($accion, $cuerpoMsj, $topico) {
         $jsonFormateado = str_replace('"', "'", json_encode($cuerpoMsj));
-        
-        error_log('accion: '.$accion. ', cuerpo: '. $jsonFormateado.' topico: '.$topico);
 
         $curl = curl_init();
+
+        $body = '{
+            "to" : "/topics/'. $topico .'",
+            "data" : {
+                "accion"  :  "'. $accion .'",
+                "cuerpo"  :  "'. $jsonFormateado .'"
+            },
+            "priority": "high"
+        }';
+
+        error_log('accion: '.$accion. ', cuerpo: '. $body.' topico: '.$topico);
 
         curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
@@ -103,14 +114,7 @@ class BaseModel {
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => '{
-                    "to" : "/topics/'. $topico .'",
-                    "data" : {
-                        "accion"  :  "'. $accion .'",
-                        "cuerpo"  :  "'. $jsonFormateado .'"
-                    },
-                    "priority": "high"
-                }',
+                CURLOPT_POSTFIELDS => $body,
                 CURLOPT_HTTPHEADER => array(
                     "Authorization: key=AIzaSyBgmTkX6hwtNoZ4aLSVfakdT3EQF7i_2Rc",
                     "Content-Type: application/json",
