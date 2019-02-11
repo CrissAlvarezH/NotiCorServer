@@ -10,6 +10,7 @@ require '../vendor/autoload.php';
 require_once 'rutas/notificaciones.router.php';
 require_once 'rutas/base.router.php';
 require_once 'rutas/noticias.router.php';
+require_once 'rutas/usuarios.router.php';
 
 $app = new \Slim\App();
 
@@ -21,6 +22,7 @@ $contenedor['ruta_img_noticias'] =  __DIR__ . '/uploads/noticias';
 $app->group('/notificaciones', $grupoRutasNotificaciones);
 $app->group('/base', $grupoRutasBase);
 $app->group('/noticias', $grupoRutasNoticias);
+$app->group('/usuarios', $grupoRutasUsuarios);
 
 $app->run();
 
