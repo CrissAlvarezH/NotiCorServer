@@ -68,6 +68,8 @@ class UsuariosModelo {
                                 $idCarrera = $sentCarrera->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
 
                                 $resultado['idCarrera'] = $idCarrera;
+                            } else {
+                                $resultado['idCarrera'] = -1;
                             }
                         }
                         
