@@ -88,7 +88,7 @@ class BaseModel {
         return false;
     }
 
-    public static function enviarNoti($accion, $cuerpoMsj, $topico){
+    public static function enviarNoti($accion, $cuerpoMsj, $topico) {
         $jsonFormateado = str_replace('"', "'", json_encode($cuerpoMsj));
         
         error_log('accion: '.$accion. ', cuerpo: '. $jsonFormateado.' topico: '.$topico);
