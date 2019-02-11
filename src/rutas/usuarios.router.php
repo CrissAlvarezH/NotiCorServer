@@ -15,6 +15,7 @@ $grupoRutasUsuarios = function () {
             $res->getBody()->write( json_encode(
                 [
                     'okay' => true,
+                    'mensaje' => $rol, // Para que la app cliente sepa el rol del usuario logueado
                     strtolower($rol) => $resp // El rol es el key del json
                 ]
             ));
