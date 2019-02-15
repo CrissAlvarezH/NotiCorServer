@@ -1,5 +1,6 @@
 <?php
 require_once 'modelos/noticias.model.php';
+require_once 'modelos/base.model.php';
 require_once 'utils/constantes.php';
 
 $grupoRutasNoticias = function () {
@@ -52,9 +53,12 @@ $grupoRutasNoticias = function () {
     // [ INICIO ] RUTAS POST
     $this->post('', function ($req, $res, $args) {
         // Insertamos los datos y tomamos el id para guardar la imagen con ese nombre
-        $id = NoticiasModel::insertarNoticia( $req->getParsedBody() );
+        $noticia = $req->getParsedBody();
+        $id = NoticiasModel::insertarNoticia( $noticia );
 
         if ( $id ) {
+            $noticia['id'] = $id;
+
             $ruta = $this->get('ruta_img_noticias');// Obtenemos la ruta definida en index.php
             $uploadedFiles = $req->getUploadedFiles();
 
@@ -67,6 +71,14 @@ $grupoRutasNoticias = function () {
             }
 
             $res->getBody()->write( json_encode( [ 'okay' => true, 'id' => $id ] ) );
+
+            /*
+             * Enviamos la noticia para los profesores que estén asociados a una carrera y para 
+             * todos los estudiantes
+             */
+            BaseModel::enviarNoti('noticia', $noticia, 'CARRERA_'.$noticia['idCarrera']);
+            BaseModel::enviarNoti('noticia', $noticia, 'ESTUDIANTE');
+
 
         } else {
             $res->getBody()->write( json_encode( [ 'okay' => false ] ) );
