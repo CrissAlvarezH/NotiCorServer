@@ -8,7 +8,7 @@ class UsuariosModelo {
         $con = Conexion::getInstancia()->getConexion();
 
         $sent = $con->prepare(
-            "INSERT INTO ".TABLA_USUARIOS." VALUES (null, :usuario, :pass, :nombres, :apellidos, 'PROFESOR') ",  
+            "INSERT INTO ".TABLA_USUARIOS." VALUES (null, :usuario, :pass, :nombres, :apellidos, 'PROFESOR') "  
         );
 
         $sent->bindParam('usuario', $profesor['usuario']);
